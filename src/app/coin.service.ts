@@ -8,7 +8,7 @@ import { Coin } from './coin/coin.interface';
   providedIn: 'root'
 })
 export class CoinService {
-  private apiUrl = 'http://localhost:3000/coins';
+  private apiUrl = 'https://coin-server-vercel.vercel.app/api/coins';
 
   constructor(private http: HttpClient) { }
 
