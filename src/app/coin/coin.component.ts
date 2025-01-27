@@ -24,16 +24,39 @@ export class CoinComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private coinService: CoinService) {
     this.coinForm = this.fb.group({
-      sigla: ['', [Validators.required, Validators.maxLength(3)]],
-      nome: ['', [Validators.required]],
-      simbolo: ['', [Validators.required, Validators.maxLength(5)]],
-      codigo: [
-        0,
-        [Validators.required, Validators.minLength(3), Validators.maxLength(3)],
-      ],
+      sigla: ['', [Validators.required, this.validateSigla]],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
+      simbolo: ['', this.validateSimbolo],
+      codigo: ['', [this.validateCodigo]]
     });
   }
 
+  validateSigla(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+    const isValid = /^[A-Z]{3}$/.test(value);
+    return isValid ? null : { 'invalidSigla': true };
+  }
+
+  validateSimbolo(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+    const isValid = value.split(',').every((symbol: string) => symbol.trim().length > 0);
+    return isValid ? null : { 'invalidSimbolo': true };
+  }
+
+  validateCodigo(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+    const isValid = value >= 1 && value <= 999;
+    return isValid ? null : { 'invalidCodigo': true };
+  }
 
   ngOnInit(): void {
     this.coinService.getCoins().subscribe((response: Coin[]) => {
@@ -45,7 +68,7 @@ export class CoinComponent implements OnInit {
   closeDialog() {
     this.coinForm.reset();
     this.edit = false;
-    this.coinForm.controls['codigo'].enable();
+    this.coinForm.controls['sigla'].enable();
     this.coinDialog.nativeElement.close();
   }
 
@@ -53,23 +76,23 @@ export class CoinComponent implements OnInit {
     this.coinDialog.nativeElement.showModal();
   }
 
-  editCoin(codigo: number) {
-    let item = this.coins.find((item) => item.codigo == codigo);
+  editCoin(sigla: string) {
+    let item = this.coins.find((item) => item.sigla == sigla);
     if (item) {
       this.coinForm.controls['nome'].setValue(item.nome);
       this.coinForm.controls['sigla'].setValue(item.sigla);
       this.coinForm.controls['simbolo'].setValue(item.simbolo);
       this.coinForm.controls['codigo'].setValue(item.codigo);
-      this.lastId = item.id;
-      this.coinForm.controls['codigo'].disable();
+      this.lastId = item.sigla;
+      this.coinForm.controls['sigla'].disable();
       this.edit = true;
       this.openDialog();
     }
   }
 
-  removeCoin(id: string) {
-    this.coinService.deleteCoin(id).subscribe(() => {
-      this.coins = this.coins.filter((item) => item.id !== id);
+  removeCoin(sigla: string) {
+    this.coinService.deleteCoin(sigla).subscribe(() => {
+      this.coins = this.coins.filter((item) => item.sigla !== sigla);
     });
   }
 
@@ -79,7 +102,7 @@ export class CoinComponent implements OnInit {
       if (this.edit) {
         this.coinService.updateCoin(this.lastId, newCoin).subscribe((data: Coin) => {
           this.coins = this.coins.map(item => {
-            if (item.id == this.lastId) {
+            if (item.sigla == this.lastId) {
               return data;
             }
             return item;

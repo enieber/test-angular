@@ -18,12 +18,12 @@
       <div
         *ngIf="coinForm.get('sigla')?.invalid && coinForm.get('sigla')?.touched"
       >
-        <p *ngIf="coinForm.get('sigla')?.errors?.['required']">
-          A sigla é obrigatória.
-        </p>
-        <p *ngIf="coinForm.get('sigla')?.errors?.['maxlength']">
-          A sigla deve ter no máximo 3 caracteres.
-        </p>
+        <div *ngIf="coinForm.get('sigla')?.hasError('required')">
+          Sigla é obrigatória.
+        </div>
+        <div *ngIf="coinForm.get('sigla')?.hasError('invalidSigla')">
+          Sigla deve ter exatamente 3 letras maiúsculas.
+        </div>
       </div>
       <label form="nome">Nome</label>
       <input
@@ -33,9 +33,15 @@
         formControlName="nome"
       />
       <div *ngIf="coinForm.get('nome')?.invalid && coinForm.get('nome')?.touched">
-        <p *ngIf="coinForm.get('nome')?.errors?.['required']">
-          O nome é obrigatório.
-        </p>
+        <div *ngIf="coinForm.get('nome')?.hasError('required')">
+          Nome é obrigatório.
+        </div>
+        <div *ngIf="coinForm.get('nome')?.hasError('minlength')">
+          Nome deve ter no mínimo 3 caracteres.
+        </div>
+        <div *ngIf="coinForm.get('nome')?.hasError('maxlength')">
+          Nome deve ter no máximo 60 caracteres.
+        </div>
       </div>
       <label form="simbolo">Simbolo</label>
       <input
@@ -49,12 +55,9 @@
           coinForm.get('simbolo')?.invalid && coinForm.get('simbolo')?.touched
         "
       >
-        <p *ngIf="coinForm.get('simbolo')?.errors?.['required']">
-          O simbolo é obrigatório.
-        </p>
-        <p *ngIf="coinForm.get('simbolo')?.errors?.['maxlength']">
-          O símbolo deve ter no máximo 5 caracteres.
-        </p>
+        <div *ngIf="coinForm.get('simbolo')?.hasError('invalidSimbolo')">
+          Símbolos devem ser separados por vírgula.
+        </div>
       </div>
       <label form="codigo">Código</label>
       <input
@@ -67,9 +70,9 @@
       <div
         *ngIf="coinForm.get('codigo')?.invalid && coinForm.get('codigo')?.touched"
       >
-        <p *ngIf="coinForm.get('codigo')?.errors?.['required']">
-          O codigo é um numero obrigatório.
-        </p>
+        <div *ngIf="coinForm.get('codigo')?.hasError('invalidCodigo')">
+          Código deve estar entre 1 e 999.
+        </div>
       </div>
       <footer>
         <button type="submit" [disabled]="coinForm.invalid">Salvar</button>
@@ -92,17 +95,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let coin of coins">
+      <tr *ngFor="let coin of coins" class="coin-item">
         <td>{{ coin.sigla }}</td>
         <td>{{ coin.nome }}</td>
         <td>{{ coin.codigo }}</td>
         <td>{{ coin.simbolo }}</td>
         <td>
-            <button (click)="editCoin(coin.codigo)" class="edit-btn">
+            <button (click)="editCoin(coin.sigla)" class="edit-btn">
               Editar
-            </button>
-            <button (click)="removeCoin(coin.id)" class="remove-btn">
-              Remover
             </button>
         </td>
       </tr>
