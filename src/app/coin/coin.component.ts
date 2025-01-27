@@ -24,7 +24,7 @@ export class CoinComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private coinService: CoinService) {
     this.coinForm = this.fb.group({
-      sigla: ['', [Validators.required, this.validateSigla]],
+      id: ['', [Validators.required, this.validateSigla]],
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
       simbolo: ['', this.validateSimbolo],
       codigo: ['', [this.validateCodigo]]
@@ -68,7 +68,7 @@ export class CoinComponent implements OnInit {
   closeDialog() {
     this.coinForm.reset();
     this.edit = false;
-    this.coinForm.controls['sigla'].enable();
+    this.coinForm.controls['id'].enable();
     this.coinDialog.nativeElement.close();
   }
 
@@ -77,14 +77,14 @@ export class CoinComponent implements OnInit {
   }
 
   editCoin(sigla: string) {
-    let item = this.coins.find((item) => item.sigla == sigla);
+    let item = this.coins.find((item) => item.id == sigla);
     if (item) {
       this.coinForm.controls['nome'].setValue(item.nome);
-      this.coinForm.controls['sigla'].setValue(item.sigla);
+      this.coinForm.controls['id'].setValue(item.id);
       this.coinForm.controls['simbolo'].setValue(item.simbolo);
       this.coinForm.controls['codigo'].setValue(item.codigo);
-      this.lastId = item.sigla;
-      this.coinForm.controls['sigla'].disable();
+      this.lastId = item.id;
+      this.coinForm.controls['id'].disable();
       this.edit = true;
       this.openDialog();
     }
@@ -92,7 +92,7 @@ export class CoinComponent implements OnInit {
 
   removeCoin(sigla: string) {
     this.coinService.deleteCoin(sigla).subscribe(() => {
-      this.coins = this.coins.filter((item) => item.sigla !== sigla);
+      this.coins = this.coins.filter((item) => item.id !== sigla);
     });
   }
 
@@ -102,7 +102,7 @@ export class CoinComponent implements OnInit {
       if (this.edit) {
         this.coinService.updateCoin(this.lastId, newCoin).subscribe((data: Coin) => {
           this.coins = this.coins.map(item => {
-            if (item.sigla == this.lastId) {
+            if (item.id == this.lastId) {
               return data;
             }
             return item;

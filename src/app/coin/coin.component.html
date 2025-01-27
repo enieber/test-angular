@@ -7,21 +7,21 @@
     <form [formGroup]="coinForm" (ngSubmit)="onSubmit()" class="coin-form">
       <h3 *ngIf="edit == true">Editar Coin</h3>
       <h3 *ngIf="edit == false">Adicionar Coin</h3>
-      <label for="sigla">Sigla</label>
+      <label for="id">Sigla</label>
       <input
         type="text"
-        id="sigla"
-        formControlName="sigla"
+        id="id"
+        formControlName="id"
         lenght="3"
         placeholder="AE2"
       />
       <div
-        *ngIf="coinForm.get('sigla')?.invalid && coinForm.get('sigla')?.touched"
+        *ngIf="coinForm.get('id')?.invalid && coinForm.get('id')?.touched"
       >
-        <div *ngIf="coinForm.get('sigla')?.hasError('required')">
+        <div *ngIf="coinForm.get('id')?.hasError('required')">
           Sigla é obrigatória.
         </div>
-        <div *ngIf="coinForm.get('sigla')?.hasError('invalidSigla')">
+        <div *ngIf="coinForm.get('id')?.hasError('invalidSigla')">
           Sigla deve ter exatamente 3 letras maiúsculas.
         </div>
       </div>
@@ -96,12 +96,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let coin of coins" class="coin-item">
-        <td>{{ coin.sigla }}</td>
+        <td>{{ coin.id }}</td>
         <td>{{ coin.nome }}</td>
         <td>{{ coin.codigo }}</td>
         <td>{{ coin.simbolo }}</td>
         <td>
-            <button (click)="editCoin(coin.sigla)" class="edit-btn">
+            <button (click)="editCoin(coin.id)" class="edit-btn">
               Editar
             </button>
         </td>
