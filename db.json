@@ -1,0 +1,22 @@
+{
+  "coins": [
+    {
+      "nome": "Dirham dos Emirados Árabes ",
+      "simbolo": "د.إ",
+      "codigo": 767,
+      "sigla": "AE3"
+    },
+    {
+      "sigla": "ABC",
+      "nome": "asdfasdfa sdfasdfa",
+      "simbolo": "$*",
+      "codigo": 123
+    },
+    {
+      "sigla": "ASD",
+      "nome": "ASDfa dfsa sd ",
+      "simbolo": "!@# asdfa",
+      "codigo": 132
+    }
+  ]
+}
