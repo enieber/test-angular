@@ -1,0 +1,15 @@
+.app-container {
+  margin: 0;
+  padding: 10px;
+  background: var(--color-background-light);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-alert {
+  color: var(--color-status-error);
+  font-weight: 600;
+}
+

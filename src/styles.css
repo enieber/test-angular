@@ -1,1 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    --color-primary-main: #60695c;
+  --color-primary-light: #c5d6d8;
+  --color-primary-dark: #60695c;
+
+  --color-secondary-main: #abdf75;
+  --color-secondary-light: #99f7ab;
+  --color-secondary-dark: #f1ecce;
+
+  --color-background-default: #ffffff;
+  --color-background-paper: #f5f5f5;
+  --color-background-light: #f1ecce;
+
+  --color-text-primary: #000000;
+  --color-text-secondary: #60695c;
+  --color-text-disabled: #c5d6d8;
+
+  --color-status-success: #99f7ab;
+  --color-status-error: #ff6b6b;
+  --color-status-warning: #f29559;
+  --color-status-info: #c5d6d8;
+
+  --color-additional-border: #c5d6d8;
+  --color-additional-highlight: #abdf75;
+  }
+
+/* Reset CSS */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  padding: 15px;
+  background: var(--color-);
+  color: var(--color-text-primary);
+  border: solid 1px var(--color-additional-border);
+}
+
+/* Remove animations and transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

@@ -1,0 +1,115 @@
+<div class="coin-container">
+  <header class="coin-container">
+    <h2>Coins</h2>
+    <button (click)="openDialog()" class="coin-btn">Adicionar</button>
+  </header>
+  <dialog #coinDialog>
+    <form [formGroup]="coinForm" (ngSubmit)="onSubmit()" class="coin-form">
+      <h3 *ngIf="edit == true">Editar Coin</h3>
+      <h3 *ngIf="edit == false">Adicionar Coin</h3>
+      <label for="sigla">Sigla</label>
+      <input
+        type="text"
+        id="sigla"
+        formControlName="sigla"
+        lenght="3"
+        placeholder="AE2"
+      />
+      <div
+        *ngIf="coinForm.get('sigla')?.invalid && coinForm.get('sigla')?.touched"
+      >
+        <p *ngIf="coinForm.get('sigla')?.errors?.['required']">
+          A sigla é obrigatória.
+        </p>
+        <p *ngIf="coinForm.get('sigla')?.errors?.['maxlength']">
+          A sigla deve ter no máximo 3 caracteres.
+        </p>
+      </div>
+      <label form="nome">Nome</label>
+      <input
+        type="text"
+        placeholder="Dirham"
+        id="nome"
+        formControlName="nome"
+      />
+      <div *ngIf="coinForm.get('nome')?.invalid && coinForm.get('nome')?.touched">
+        <p *ngIf="coinForm.get('nome')?.errors?.['required']">
+          O nome é obrigatório.
+        </p>
+      </div>
+      <label form="simbolo">Simbolo</label>
+      <input
+        type="text"
+        id="simbolo"
+        formControlName="simbolo"
+        placeholder="د.إ"
+      />
+      <div
+        *ngIf="
+          coinForm.get('simbolo')?.invalid && coinForm.get('simbolo')?.touched
+        "
+      >
+        <p *ngIf="coinForm.get('simbolo')?.errors?.['required']">
+          O simbolo é obrigatório.
+        </p>
+        <p *ngIf="coinForm.get('simbolo')?.errors?.['maxlength']">
+          O símbolo deve ter no máximo 5 caracteres.
+        </p>
+      </div>
+      <label form="codigo">Código</label>
+      <input
+        type="number"
+        id="codigo"
+        formControlName="codigo"
+        appNumbersOnly
+        placeholder="784"
+      />
+      <div
+        *ngIf="coinForm.get('codigo')?.invalid && coinForm.get('codigo')?.touched"
+      >
+        <p *ngIf="coinForm.get('codigo')?.errors?.['required']">
+          O codigo é um numero obrigatório.
+        </p>
+      </div>
+      <footer>
+        <button type="submit" [disabled]="coinForm.invalid">Salvar</button>
+        <button type="button" class="btn-cancell" (click)="closeDialog()">
+          Cancelar
+        </button>
+      </footer>
+    </form>
+  </dialog>
+ <div class="coin-list">
+  <h3>Lista de Moedas</h3>
+  <table *ngIf="coins.length > 0; else emptyList">
+    <thead>
+      <tr>
+        <th>Sigla</th>
+        <th>Nome</th>
+        <th>Código</th>
+        <th>Símbolo</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coin of coins">
+        <td>{{ coin.sigla }}</td>
+        <td>{{ coin.nome }}</td>
+        <td>{{ coin.codigo }}</td>
+        <td>{{ coin.simbolo }}</td>
+        <td>
+            <button (click)="editCoin(coin.codigo)" class="edit-btn">
+              Editar
+            </button>
+            <button (click)="removeCoin(coin.id)" class="remove-btn">
+              Remover
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyList>
+    <p class="empty-message">Nenhuma moeda cadastrada.</p>
+  </ng-template>
+</div></div>

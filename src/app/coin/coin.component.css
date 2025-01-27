@@ -1,0 +1,79 @@
+.coin-container dialog {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 80vw;
+  min-width: 50vw;
+  border: 1px solid var(--color-background-default);
+  transform: translate(-50%, -50%);
+}
+
+.coin-container dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.coin-container header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.coin-container header button {
+  color: var(--color-primary-light);
+  padding: 0.5rem;
+  background: var(--color-primary-main);
+  border: solid 1px var(--color-primary-main);
+}
+
+.coin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.coin-form footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.coin-form label {
+  font-weight: 600;
+  margin: 10px 0 10px 0;
+}
+
+.coin-form input {
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  border: solid 1px var(--color-additional-border);
+}
+
+.coin-form .btn-cancell {
+  background: var(--color-status-error);
+}
+
+.coin-form button {
+  color: var(--color-text-primary);
+}
+
+.coin-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coin-item .remove-btn {
+  background: var(--color-status-success);
+  color: var(--color-primary-light);
+}
+
+.coin-item .remove-btn {
+  background: var(--color-status-error);
+  color: var(--color-primary-light);
+}
+
